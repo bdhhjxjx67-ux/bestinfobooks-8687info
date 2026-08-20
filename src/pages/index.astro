@@ -1,0 +1,1291 @@
+---
+import "../styles/global.css";
+
+export const prerender = false;
+
+type Match = {
+  MatchID: string;
+  League: string;
+  LeagueLogo: string;
+  Team1: string;
+  Team1Logo: string;
+  Team2: string;
+  Team2Logo: string;
+  Date: string;
+  Time: string;
+  TVGuide?: string;
+  MatchThumb?: string;
+  IframeURL: string;
+};
+
+const res = await fetch(
+  "https://opensheet.elk.sh/1gHshryM9mQFVYC2AeSj6bhcKW8_g69EBbMPI0F8s53Y/1",
+);
+
+function slugify(text: string) {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+const data = await res.json();
+
+const matches: Match[] = Array.isArray(data)
+  ? data
+  : data.matches || data.data || [];
+
+const groupedMatches: Record<string, Match[]> = matches.reduce(
+  (acc: Record<string, Match[]>, match: Match) => {
+    const league = match.League || "Other";
+
+    if (!acc[league]) {
+      acc[league] = [];
+    }
+
+    acc[league].push(match);
+
+    return acc;
+  },
+  {},
+);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+<title>TOTALSPORTEK - Popular Soccer Streams</title>
+
+<meta name="description" content="TotalSportek streams live sports in HD, including Soccer, NFL, UFC, CFB, NBA, NHL, MLB and more. Find live games, upcoming matches and sports events in one place." />
+
+
+<meta name="keywords" content="TotalSportek, TotalSportek HD, live sports, sports streams, live sports streams, Soccer streams, NFL streams, UFC streams, CFB streams, NBA streams, NHL streams, MLB streams, MMA streams, live games, sports events, HD sports streams" />
+
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Condensed:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+     <script type="text/javascript" data-cfasync="false">
+      /*<![CDATA[/* */
+      (function () {
+        var f = window,
+          o = "a87676653363e404276efa598a496750",
+          g = [
+            ["siteId", 669 - 556 + 61 + 506 - 86 + 5278574],
+            ["minBid", 0],
+            ["popundersPerIP", "0:1"],
+            ["delayBetween", 0],
+            ["default", "SElHSCBDUE0="],
+            ["defaultPerDay", 0],
+            ["topmostLayer", "auto"],
+          ],
+          e = [
+            "d3d3LmRpc3BsYXl2ZXJ0aXNpbmcuY29tL3lqcXVlcnkuaW1nYXJlYXNlbGVjdC5taW4uY3Nz",
+            "ZDNtem9rdHk5NTFjNXcuY2xvdWRmcm9udC5uZXQvWi94Ym9vdHN0cmFwLWNvbG9ycGlja2VyLm1pbi5qcw==",
+          ],
+          c = -1,
+          s,
+          h,
+          v = function () {
+            clearTimeout(h);
+            c++;
+            if (e[c] && !(1797887577000 < new Date().getTime() && 1 < c)) {
+              s = f.document.createElement("script");
+              s.type = "text/javascript";
+              s.async = !0;
+              var y = f.document.getElementsByTagName("script")[0];
+              s.src = "https://" + atob(e[c]);
+              s.crossOrigin = "anonymous";
+              s.onerror = v;
+              s.onload = function () {
+                clearTimeout(h);
+                f[o.slice(0, 16) + o.slice(0, 16)] || v();
+              };
+              h = setTimeout(v, 5e3);
+              y.parentNode.insertBefore(s, y);
+            }
+          };
+        if (!f[o]) {
+          try {
+            Object.freeze((f[o] = g));
+          } catch (e) {}
+          v();
+        }
+      })();
+      /*]]>/* */
+    </script>
+  </head>
+
+  <body class="min-h-screen flex flex-col bg-[#09090f] text-white">
+    <header class="bg-[#131320] border-b border-white/5">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="h-16 flex items-center justify-between gap-4">
+          <a
+            href="/"
+            class="text-2xl font-bold text-[#f9fafb] hover:text-[#c084fc] transition whitespace-nowrap"
+          >
+            TotalSportek
+          </a>
+
+          <nav
+            class="flex items-center gap-2 overflow-x-auto font-semibold scrollbar-hide"
+          >
+
+            <a
+              href="/#nba"
+              class="px-3 py-2 text-[12px] tracking-wide rounded-xl text-[#f9fafb] hover:text-white hover:bg-white/5 transition-all duration-200 whitespace-nowrap"
+            >
+              NFL
+            </a>
+
+             <a
+              href="/#ufc"
+              class="px-3 py-2 text-[12px] tracking-wide rounded-xl text-[#f9fafb] hover:text-white hover:bg-white/5 transition-all duration-200 whitespace-nowrap"
+            >
+              UFC
+            </a>
+
+            <a
+              href="/#boxing"
+              class="px-3 py-2 text-[12px] tracking-wide rounded-xl text-[#f9fafb] hover:text-white hover:bg-white/5 transition-all duration-200 whitespace-nowrap"
+            >
+              Boxing
+            </a>
+
+             <a
+              href="/#cfl"
+              class="px-3 py-2 text-[12px] tracking-wide rounded-xl text-[#f9fafb] hover:text-white hover:bg-white/5 transition-all duration-200 whitespace-nowrap"
+            >
+              CFL
+            </a>
+
+             <a
+              href="/#nhl"
+              class="px-3 py-2 text-[12px] tracking-wide rounded-xl text-[#f9fafb] hover:text-white hover:bg-white/5 transition-all duration-200 whitespace-nowrap"
+            >
+              NHL
+            </a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    
+    <main class="relative z-10 flex-1 mt-12">
+
+<div class="flex justify-center items-center my-6 px-4">
+  <a href="https://discord.com/invite/HA28b5xMTW"
+     target="_blank"
+     class="flex items-center gap-3 bg-[#5865F2] hover:opacity-90 transition-all duration-300 px-6 py-4 rounded-2xl w-full max-w-md justify-center">
+
+    <svg viewBox="0 -28.5 256 256" class="w-8 h-8 flex-shrink-0" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" fill="#000000">
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <g>
+                      <path
+                        d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z"
+                        fill="#fff" fill-rule="nonzero"> </path>
+                    </g>
+                  </g>
+                </svg>
+    
+    <span class="text-white font-semibold text-sm sm:text-base text-center leading-tight">
+  Join TotalSportek Community on Discord
+</span>
+  </a>
+</div>
+      
+      <div
+        id="ad-left"
+        class="fixed z-50 top-2 left-1/2 -translate-x-1/2
+         xl:top-1/2 xl:left-4 xl:-translate-x-0 xl:-translate-y-1/2"
+      >
+        <button
+          onclick="document.getElementById('ad-left').style.display='none'"
+          class="absolute -top-3 -right-3 bg-black text-white w-6 h-6 rounded-full text-xs flex items-center justify-center z-50"
+        >
+          ✕
+        </button>
+
+        <div class="w-[300px] h-[250px] overflow-hidden">
+      
+
+          
+        </div>
+      </div>
+
+      <div
+        id="ad-right"
+        class="fixed z-50 bottom-2 left-1/2 -translate-x-1/2
+         xl:bottom-auto xl:right-4 xl:left-auto xl:translate-x-0 xl:top-1/2 xl:-translate-y-1/2"
+      >
+        <button
+          onclick="document.getElementById('ad-right').style.display='none'"
+          class="absolute -top-3 -left-3 bg-black text-white w-6 h-6 rounded-full text-xs flex items-center justify-center z-50"
+        >
+          ✕
+        </button>
+
+        <div class="w-[300px] h-[250px] overflow-hidden">
+       
+
+        </div>
+      </div>
+      <div class="w-full flex justify-center mb-4">
+        <div class="overflow-hidden">
+         
+
+
+        </div>
+      </div>
+      <section class="max-w-6xl mx-auto px-4 pb-12">
+        <div class="rounded-lg bg-[#131320] backdrop-blur-xl p-8 md:p-6">
+<span class="inline-flex items-center gap-2 text-purple-300 text-sm font-medium">
+  <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+
+TotalSportek – Follow the Latest Sports Action & Events </span>
+
+<h1 class="mt-4 text-2xl md:text-4xl font-black leading-tight">
+  TotalSportek – Live Sports, Soccer, NFL, UFC, NBA & More
+</h1>
+
+<p class="mt-4 text-zinc-300 text-sm leading-7 tracking-normal">
+  TotalSportek is a simple place for sports fans to keep up with major games,
+  competitions, and events from around the world. Follow Soccer, NFL, NBA,
+  NHL, MLB, UFC, MMA, CFB, Formula 1, and other popular sports. Check upcoming
+  games, match times, league schedules, team details, fight cards, race
+  information, and important event updates in one convenient place. From
+  international soccer and American football to basketball, combat sports,
+  baseball, hockey, and motorsports, TotalSportek makes it easy to explore
+  the sports and events you follow.
+</p>
+        </div>
+      </section>
+
+      <div class="max-w-6xl mx-auto px-4 pb-16" style="scroll-behavior:smooth;">
+        {
+          Object.entries(groupedMatches).map(([league, leagueMatches]) => (
+            <section
+              id={slugify(league)}
+              class="mb-12"
+              style="scroll-margin-top:90px;"
+            >
+              <div class="flex items-center gap-3 mb-5">
+                <div class="w-2 h-7 rounded-full bg-purple-500" />
+                <h2 class="text-2xl font-bold capitalize">{league}</h2>
+                <span class="px-3 py-1 rounded-full bg-[#181825] text-zinc-300 text-sm font-medium">
+                  {leagueMatches.length} Events
+                </span>{" "}
+              </div>
+
+              <div class="grid gap-3">
+                {leagueMatches.map((match: Match) => (
+                  <a
+                    href={`/${slugify(match.League)}/${slugify(
+                      `${match.Team1}-vs-${match.Team2}`,
+                    )}/${match.MatchID}`}
+                    class="group rounded-lg bg-[#131320] hover:bg-[#181825] backdrop-blur-xl transition-all duration-300"
+                  >
+                    <div class="p-5 flex items-center justify-between gap-4">
+                      <div>
+                        <h3 class="font-semibold text-lg">
+                          {match.Team1} vs {match.Team2}
+                        </h3>
+
+                        <div class="mt-2 flex items-center gap-2 text-sm text-[#999] font-medium">
+                          <span>{match.Date}</span>
+
+                          <span>•</span>
+
+                          <span>{match.Time}</span>
+                        </div>
+                      </div>
+
+                      <div class="text-zinc-500 group-hover:text-[#c084fc] transition">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="22"
+                          height="22"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          class="min-w-[22px] min-h-[22px]"
+                        >
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                          <path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" />
+                          <path d="M11 13l9 -9" />
+                          <path d="M15 4h5v5" />
+                        </svg>
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </section>
+          ))
+        }
+      </div>
+
+      <div class="max-w-6xl mx-auto px-4 pb-12 mt-[-70px]">
+        <div class="bg-[#131320] rounded-lg p-5">
+
+<section class="relative overflow-hidden bg-[#07070a] py-20 text-white">
+  <div class="pointer-events-none absolute inset-0">
+    <div class="absolute left-[-180px] top-20 h-[420px] w-[420px] rounded-full bg-fuchsia-600/10 blur-[120px]"></div>
+    <div class="absolute right-[-150px] top-[40%] h-[500px] w-[500px] rounded-full bg-indigo-600/10 blur-[140px]"></div>
+    <div class="absolute bottom-[-200px] left-1/3 h-[450px] w-[450px] rounded-full bg-purple-600/10 blur-[130px]"></div>
+  </div>
+
+  <div class="relative mx-auto max-w-7xl px-5 sm:px-6">
+
+    <div class="mx-auto max-w-5xl text-center">
+      <div class="mb-7 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-5 py-2.5 backdrop-blur">
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-fuchsia-400 opacity-70"></span>
+          <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-fuchsia-500"></span>
+        </span>
+
+        <span class="text-xs font-bold uppercase tracking-[0.22em] text-fuchsia-300">
+          Welcome to TotalSportek
+        </span>
+      </div>
+
+      <h1 class="text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl md:text-7xl">
+        TotalSportek
+        <span class="block bg-gradient-to-r from-fuchsia-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
+          Your Sports Hub
+        </span>
+      </h1>
+
+      <p class="mx-auto mt-7 max-w-3xl text-base leading-8 text-zinc-400 sm:text-lg">
+        TotalSportek brings sports fans a simple way to explore games,
+        competitions, schedules, teams, and major events from across the
+        sporting world. Find the sports you follow and keep everything
+        organized in one easy-to-use destination.
+      </p>
+    </div>
+
+
+    <div class="mt-20 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+
+      <div class="group rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.07] to-white/[0.02] p-7 transition duration-300 hover:-translate-y-2 hover:border-fuchsia-500/40">
+        <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-fuchsia-500/10 text-3xl">
+          🏀
+        </div>
+
+        <h3 class="text-xl font-extrabold">NBA</h3>
+
+        <p class="mt-3 text-sm leading-7 text-zinc-500">
+          Keep up with basketball games, team matchups, league activity,
+          schedules, and important NBA moments.
+        </p>
+      </div>
+
+
+      <div class="group rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.07] to-white/[0.02] p-7 transition duration-300 hover:-translate-y-2 hover:border-fuchsia-500/40">
+        <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-fuchsia-500/10 text-3xl">
+          🏈
+        </div>
+
+        <h3 class="text-xl font-extrabold">NFL</h3>
+
+        <p class="mt-3 text-sm leading-7 text-zinc-500">
+          Explore NFL games, team schedules, weekly matchups, playoff
+          activity, and major football events.
+        </p>
+      </div>
+
+
+      <div class="group rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.07] to-white/[0.02] p-7 transition duration-300 hover:-translate-y-2 hover:border-fuchsia-500/40">
+        <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-fuchsia-500/10 text-3xl">
+          ⚽
+        </div>
+
+        <h3 class="text-xl font-extrabold">Soccer</h3>
+
+        <p class="mt-3 text-sm leading-7 text-zinc-500">
+          Discover soccer fixtures, competitions, club matchups,
+          tournaments, and major football events.
+        </p>
+      </div>
+
+
+      <div class="group rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.07] to-white/[0.02] p-7 transition duration-300 hover:-translate-y-2 hover:border-fuchsia-500/40">
+        <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-fuchsia-500/10 text-3xl">
+          🥊
+        </div>
+
+        <h3 class="text-xl font-extrabold">UFC</h3>
+
+        <p class="mt-3 text-sm leading-7 text-zinc-500">
+          Follow UFC events, upcoming bouts, featured fighters,
+          fight cards, and major MMA occasions.
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="mt-24 grid gap-6 lg:grid-cols-[1.5fr_0.8fr]">
+
+      <div class="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-fuchsia-950/30 via-[#101014] to-[#08080b] p-8 sm:p-12">
+
+        <div class="absolute right-0 top-0 h-64 w-64 rounded-full bg-fuchsia-500/10 blur-[100px]"></div>
+
+        <div class="relative">
+          <span class="text-xs font-bold uppercase tracking-[0.25em] text-fuchsia-400">
+            About TotalSportek
+          </span>
+
+          <h2 class="mt-5 max-w-2xl text-3xl font-black leading-tight sm:text-5xl">
+            One Place to Explore the Sports You Follow
+          </h2>
+
+          <p class="mt-6 max-w-2xl text-base leading-8 text-zinc-400">
+            TotalSportek is designed for fans who want a straightforward
+            starting point for discovering sports activity. Browse different
+            categories, check upcoming games, explore competitions, and stay
+            familiar with the events taking place across the year.
+          </p>
+
+          <p class="mt-5 max-w-2xl text-base leading-8 text-zinc-500">
+            From basketball and American football to soccer and combat sports,
+            TotalSportek keeps popular sporting categories together in a clean,
+            easy-to-navigate experience.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="rounded-[2.5rem] border border-white/10 bg-white/[0.035] p-8 sm:p-10">
+
+        <span class="text-xs font-bold uppercase tracking-[0.25em] text-fuchsia-400">
+          Popular Categories
+        </span>
+
+        <h3 class="mt-4 text-3xl font-black">
+          TotalSportek Sports
+        </h3>
+
+        <div class="mt-8 space-y-3">
+
+          <div class="flex items-center justify-between rounded-2xl border border-white/5 bg-black/30 px-5 py-4">
+            <span class="font-semibold">Soccer</span>
+            <span class="text-xs text-zinc-500">Football</span>
+          </div>
+
+          <div class="flex items-center justify-between rounded-2xl border border-white/5 bg-black/30 px-5 py-4">
+            <span class="font-semibold">NFL</span>
+            <span class="text-xs text-zinc-500">Football</span>
+          </div>
+
+          <div class="flex items-center justify-between rounded-2xl border border-white/5 bg-black/30 px-5 py-4">
+            <span class="font-semibold">NBA</span>
+            <span class="text-xs text-zinc-500">Basketball</span>
+          </div>
+
+          <div class="flex items-center justify-between rounded-2xl border border-white/5 bg-black/30 px-5 py-4">
+            <span class="font-semibold">UFC</span>
+            <span class="text-xs text-zinc-500">MMA</span>
+          </div>
+
+          <div class="flex items-center justify-between rounded-2xl border border-white/5 bg-black/30 px-5 py-4">
+            <span class="font-semibold">NHL</span>
+            <span class="text-xs text-zinc-500">Hockey</span>
+          </div>
+
+          <div class="flex items-center justify-between rounded-2xl border border-white/5 bg-black/30 px-5 py-4">
+            <span class="font-semibold">MLB</span>
+            <span class="text-xs text-zinc-500">Baseball</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="mt-24">
+
+      <div class="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+
+        <div>
+          <span class="text-xs font-bold uppercase tracking-[0.25em] text-fuchsia-400">
+            TotalSportek Directory
+          </span>
+
+          <h2 class="mt-4 text-3xl font-black sm:text-5xl">
+            Explore Sports on TotalSportek
+          </h2>
+        </div>
+
+        <p class="max-w-xl text-sm leading-7 text-zinc-500">
+          A collection of popular sports and competitions followed by fans
+          around the world.
+        </p>
+
+      </div>
+
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+        <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition hover:bg-white/[0.06]">
+          <span class="text-xs font-bold text-fuchsia-400">01</span>
+          <h3 class="mt-5 text-xl font-bold">Soccer</h3>
+          <p class="mt-2 text-sm text-zinc-500">Global Football</p>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition hover:bg-white/[0.06]">
+          <span class="text-xs font-bold text-fuchsia-400">02</span>
+          <h3 class="mt-5 text-xl font-bold">NFL</h3>
+          <p class="mt-2 text-sm text-zinc-500">American Football</p>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition hover:bg-white/[0.06]">
+          <span class="text-xs font-bold text-fuchsia-400">03</span>
+          <h3 class="mt-5 text-xl font-bold">NBA</h3>
+          <p class="mt-2 text-sm text-zinc-500">Basketball</p>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition hover:bg-white/[0.06]">
+          <span class="text-xs font-bold text-fuchsia-400">04</span>
+          <h3 class="mt-5 text-xl font-bold">UFC</h3>
+          <p class="mt-2 text-sm text-zinc-500">Combat Sports</p>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition hover:bg-white/[0.06]">
+          <span class="text-xs font-bold text-fuchsia-400">05</span>
+          <h3 class="mt-5 text-xl font-bold">NHL</h3>
+          <p class="mt-2 text-sm text-zinc-500">Ice Hockey</p>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition hover:bg-white/[0.06]">
+          <span class="text-xs font-bold text-fuchsia-400">06</span>
+          <h3 class="mt-5 text-xl font-bold">MLB</h3>
+          <p class="mt-2 text-sm text-zinc-500">Baseball</p>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition hover:bg-white/[0.06]">
+          <span class="text-xs font-bold text-fuchsia-400">07</span>
+          <h3 class="mt-5 text-xl font-bold">F1</h3>
+          <p class="mt-2 text-sm text-zinc-500">Motorsport</p>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition hover:bg-white/[0.06]">
+          <span class="text-xs font-bold text-fuchsia-400">08</span>
+          <h3 class="mt-5 text-xl font-bold">MMA</h3>
+          <p class="mt-2 text-sm text-zinc-500">Mixed Martial Arts</p>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="mt-24 grid gap-5 md:grid-cols-3">
+
+      <div class="rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.06] to-transparent p-8">
+        <div class="mb-6 flex h-11 w-11 items-center justify-center rounded-xl bg-fuchsia-500/10 text-fuchsia-400">
+          01
+        </div>
+
+        <h3 class="text-2xl font-black">
+          Sports Discovery
+        </h3>
+
+        <p class="mt-4 text-sm leading-7 text-zinc-500">
+          Explore popular sports categories and discover games,
+          competitions, and events that match your interests.
+        </p>
+      </div>
+
+
+      <div class="rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.06] to-transparent p-8">
+        <div class="mb-6 flex h-11 w-11 items-center justify-center rounded-xl bg-fuchsia-500/10 text-fuchsia-400">
+          02
+        </div>
+
+        <h3 class="text-2xl font-black">
+          Event Updates
+        </h3>
+
+        <p class="mt-4 text-sm leading-7 text-zinc-500">
+          Stay familiar with upcoming fixtures, major matchups,
+          tournaments, fight nights, and other sporting occasions.
+        </p>
+      </div>
+
+
+      <div class="rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.06] to-transparent p-8">
+        <div class="mb-6 flex h-11 w-11 items-center justify-center rounded-xl bg-fuchsia-500/10 text-fuchsia-400">
+          03
+        </div>
+
+        <h3 class="text-2xl font-black">
+          Simple Experience
+        </h3>
+
+        <p class="mt-4 text-sm leading-7 text-zinc-500">
+          TotalSportek keeps sports content structured so visitors
+          can quickly move between categories and find relevant details.
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="relative mt-24 overflow-hidden rounded-[3rem] border border-fuchsia-500/20 bg-gradient-to-br from-fuchsia-950/40 via-[#111018] to-black px-7 py-14 text-center sm:px-12 md:py-20">
+
+      <div class="absolute left-1/2 top-[-180px] h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-fuchsia-500/10 blur-[110px]"></div>
+
+      <div class="relative mx-auto max-w-4xl">
+
+        <span class="text-xs font-bold uppercase tracking-[0.3em] text-fuchsia-400">
+          TotalSportek
+        </span>
+
+        <h2 class="mt-5 text-3xl font-black leading-tight sm:text-5xl md:text-6xl">
+          Stay Connected With the Sports You Love
+        </h2>
+
+        <p class="mt-6 text-base leading-8 text-zinc-400 sm:text-lg">
+          TotalSportek gives sports fans a central place to explore Soccer,
+          NFL, NBA, UFC, NHL, MLB, F1, MMA, and other major categories.
+          Discover upcoming games, competitions, schedules, teams, and
+          sporting events through a clean and simple experience built for
+          sports fans.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<div class="mt-10 overflow-hidden rounded-[2rem] border border-white/10 bg-[#08080c] shadow-[0_25px_80px_rgba(0,0,0,0.45)]">
+
+  <div class="border-b border-white/10 bg-gradient-to-r from-[#17111f] via-[#10131f] to-[#0b1018] px-7 py-7">
+    <div class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+      <div>
+        <span class="text-[11px] font-bold uppercase tracking-[0.28em] text-fuchsia-400">
+          TotalSportek Sports Guide
+        </span>
+
+        <h2 class="mt-2 text-2xl font-black text-white md:text-3xl">
+          Explore Popular Sports
+        </h2>
+      </div>
+
+      <p class="max-w-md text-sm leading-6 text-zinc-500">
+        Browse major sports, competitions and the events fans follow throughout
+        the sporting calendar.
+      </p>
+    </div>
+  </div>
+
+
+  <div class="overflow-x-auto">
+    <table class="min-w-[1050px] w-full border-collapse">
+
+      <thead>
+        <tr class="bg-white/[0.035]">
+          <th class="px-7 py-5 text-left text-[11px] font-extrabold uppercase tracking-[0.2em] text-zinc-400">
+            Category
+          </th>
+
+          <th class="px-7 py-5 text-left text-[11px] font-extrabold uppercase tracking-[0.2em] text-zinc-400">
+            Key Competitions
+          </th>
+
+          <th class="px-7 py-5 text-left text-[11px] font-extrabold uppercase tracking-[0.2em] text-zinc-400">
+            TotalSportek Overview
+          </th>
+        </tr>
+      </thead>
+
+
+      <tbody>
+
+        <tr class="group border-t border-white/[0.06] bg-[#0a0a0e] transition hover:bg-fuchsia-950/10">
+
+          <td class="px-7 py-7 align-top">
+            <div class="flex items-center gap-4">
+              <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-orange-500/10 text-lg">
+                🏀
+              </span>
+
+              <div>
+                <div class="font-bold text-white">NBA</div>
+                <div class="mt-1 text-xs text-zinc-600">Basketball</div>
+              </div>
+            </div>
+          </td>
+
+          <td class="px-7 py-7 align-top text-sm font-medium text-zinc-300">
+            League Games · Playoffs · Finals
+          </td>
+
+          <td class="px-7 py-7 align-top text-sm leading-7 text-zinc-500">
+            Discover NBA matchups, team schedules, conference activity,
+            playoff races and the biggest basketball games of the season.
+          </td>
+
+        </tr>
+
+
+        <tr class="group border-t border-white/[0.06] bg-[#0d0d11] transition hover:bg-fuchsia-950/10">
+
+          <td class="px-7 py-7 align-top">
+            <div class="flex items-center gap-4">
+              <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-green-500/10 text-lg">
+                🏈
+              </span>
+
+              <div>
+                <div class="font-bold text-white">NFL</div>
+                <div class="mt-1 text-xs text-zinc-600">American Football</div>
+              </div>
+            </div>
+          </td>
+
+          <td class="px-7 py-7 align-top text-sm font-medium text-zinc-300">
+            Weekly Games · Playoffs · Super Bowl
+          </td>
+
+          <td class="px-7 py-7 align-top text-sm leading-7 text-zinc-500">
+            Follow NFL fixtures, weekly matchups, division competition,
+            postseason action and major games from the football calendar.
+          </td>
+
+        </tr>
+
+
+        <tr class="group border-t border-white/[0.06] bg-[#0a0a0e] transition hover:bg-fuchsia-950/10">
+
+          <td class="px-7 py-7 align-top">
+            <div class="flex items-center gap-4">
+              <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-500/10 text-lg">
+                ⚽
+              </span>
+
+              <div>
+                <div class="font-bold text-white">Soccer</div>
+                <div class="mt-1 text-xs text-zinc-600">Football</div>
+              </div>
+            </div>
+          </td>
+
+          <td class="px-7 py-7 align-top text-sm font-medium text-zinc-300">
+            Leagues · Cups · International Games
+          </td>
+
+          <td class="px-7 py-7 align-top text-sm leading-7 text-zinc-500">
+            Explore club fixtures, league campaigns, cup matches,
+            international tournaments and important soccer events
+            from different competitions.
+          </td>
+
+        </tr>
+
+
+        <tr class="group border-t border-white/[0.06] bg-[#0d0d11] transition hover:bg-fuchsia-950/10">
+
+          <td class="px-7 py-7 align-top">
+            <div class="flex items-center gap-4">
+              <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-red-500/10 text-lg">
+                🥊
+              </span>
+
+              <div>
+                <div class="font-bold text-white">UFC</div>
+                <div class="mt-1 text-xs text-zinc-600">MMA</div>
+              </div>
+            </div>
+          </td>
+
+          <td class="px-7 py-7 align-top text-sm font-medium text-zinc-300">
+            Fight Nights · Main Events · Title Fights
+          </td>
+
+          <td class="px-7 py-7 align-top text-sm leading-7 text-zinc-500">
+            Check upcoming UFC cards, featured fighters, headline bouts,
+            championship matchups and major fight-night events.
+          </td>
+
+        </tr>
+
+
+        <tr class="group border-t border-white/[0.06] bg-[#0a0a0e] transition hover:bg-fuchsia-950/10">
+
+          <td class="px-7 py-7 align-top">
+            <div class="flex items-center gap-4">
+              <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-500/10 text-lg">
+                🏒
+              </span>
+
+              <div>
+                <div class="font-bold text-white">NHL</div>
+                <div class="mt-1 text-xs text-zinc-600">Ice Hockey</div>
+              </div>
+            </div>
+          </td>
+
+          <td class="px-7 py-7 align-top text-sm font-medium text-zinc-300">
+            League Schedule · Playoffs · Stanley Cup
+          </td>
+
+          <td class="px-7 py-7 align-top text-sm leading-7 text-zinc-500">
+            Find hockey matchups, team schedules, divisional races,
+            playoff contests and notable NHL games throughout the year.
+          </td>
+
+        </tr>
+
+
+        <tr class="group border-t border-white/[0.06] bg-[#0d0d11] transition hover:bg-fuchsia-950/10">
+
+          <td class="px-7 py-7 align-top">
+            <div class="flex items-center gap-4">
+              <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-500/10 text-lg">
+                ⚾
+              </span>
+
+              <div>
+                <div class="font-bold text-white">MLB</div>
+                <div class="mt-1 text-xs text-zinc-600">Baseball</div>
+              </div>
+            </div>
+          </td>
+
+          <td class="px-7 py-7 align-top text-sm font-medium text-zinc-300">
+            Regular Games · Postseason · World Series
+          </td>
+
+          <td class="px-7 py-7 align-top text-sm leading-7 text-zinc-500">
+            Explore baseball schedules, team matchups, divisional races,
+            postseason games and important MLB events.
+          </td>
+
+        </tr>
+
+
+        <tr class="group border-t border-white/[0.06] bg-[#0a0a0e] transition hover:bg-fuchsia-950/10">
+
+          <td class="px-7 py-7 align-top">
+            <div class="flex items-center gap-4">
+              <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-yellow-500/10 text-lg">
+                🏈
+              </span>
+
+              <div>
+                <div class="font-bold text-white">CFB</div>
+                <div class="mt-1 text-xs text-zinc-600">College Football</div>
+              </div>
+            </div>
+          </td>
+
+          <td class="px-7 py-7 align-top text-sm font-medium text-zinc-300">
+            College Games · Conferences · Bowl Games
+          </td>
+
+          <td class="px-7 py-7 align-top text-sm leading-7 text-zinc-500">
+            Keep track of college football matchups, conference schedules,
+            ranked games, rivalry contests and postseason events.
+          </td>
+
+        </tr>
+
+
+        <tr class="group border-t border-white/[0.06] bg-[#0d0d11] transition hover:bg-fuchsia-950/10">
+
+          <td class="px-7 py-7 align-top">
+            <div class="flex items-center gap-4">
+              <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-red-500/10 text-lg">
+                🏎️
+              </span>
+
+              <div>
+                <div class="font-bold text-white">Formula 1</div>
+                <div class="mt-1 text-xs text-zinc-600">Motorsport</div>
+              </div>
+            </div>
+          </td>
+
+          <td class="px-7 py-7 align-top text-sm font-medium text-zinc-300">
+            Grand Prix · Qualifying · Race Day
+          </td>
+
+          <td class="px-7 py-7 align-top text-sm leading-7 text-zinc-500">
+            Explore F1 race weekends, qualifying sessions, Grand Prix events,
+            driver battles and championship-season activity.
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+  </div>
+
+</div>
+
+<section class="relative py-24 bg-[#060608] overflow-hidden">
+
+  <div class="absolute -left-40 top-20 h-96 w-96 rounded-full bg-fuchsia-600/10 blur-[130px]"></div>
+  <div class="absolute -right-40 bottom-10 h-[500px] w-[500px] rounded-full bg-indigo-600/10 blur-[150px]"></div>
+
+  <div class="relative max-w-6xl mx-auto px-5 sm:px-6">
+
+    <div class="max-w-3xl mx-auto text-center mb-16">
+
+      <span class="inline-flex items-center rounded-full border border-fuchsia-500/20 bg-fuchsia-500/[0.06] px-5 py-2 text-[11px] font-bold uppercase tracking-[0.28em] text-fuchsia-400">
+        TotalSportek Guide
+      </span>
+
+      <h2 class="mt-6 text-4xl md:text-5xl font-black tracking-tight text-white">
+        Frequently Asked Questions
+      </h2>
+
+      <p class="mt-5 text-base md:text-lg leading-8 text-zinc-500">
+        Learn more about TotalSportek, the sports categories available,
+        event information, schedules, and the features visitors can explore.
+      </p>
+
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5">
+
+      <details class="group rounded-3xl border border-white/[0.08] bg-white/[0.025] transition-all duration-300 hover:border-fuchsia-500/30 hover:bg-white/[0.045]">
+
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-5 px-6 py-6">
+
+          <span class="text-[17px] font-bold leading-7 text-white">
+            What is TotalSportek?
+          </span>
+
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-black text-lg text-fuchsia-400 transition-transform duration-300 group-open:rotate-45">
+            +
+          </span>
+
+        </summary>
+
+        <div class="border-t border-white/[0.06] px-6 pb-6 pt-5 text-sm leading-7 text-zinc-500">
+          TotalSportek is a sports-focused destination where visitors can
+          explore popular sports, leagues, teams, games, competitions,
+          schedules, and major sporting events in one organized place.
+        </div>
+
+      </details>
+
+
+      <details class="group rounded-3xl border border-white/[0.08] bg-white/[0.025] transition-all duration-300 hover:border-fuchsia-500/30 hover:bg-white/[0.045]">
+
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-5 px-6 py-6">
+
+          <span class="text-[17px] font-bold leading-7 text-white">
+            What sports can I find on TotalSportek?
+          </span>
+
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-black text-lg text-fuchsia-400 transition-transform duration-300 group-open:rotate-45">
+            +
+          </span>
+
+        </summary>
+
+        <div class="border-t border-white/[0.06] px-6 pb-6 pt-5 text-sm leading-7 text-zinc-500">
+          TotalSportek features a wide selection of popular categories,
+          including Soccer, NFL, NBA, NHL, MLB, UFC, MMA, CFB, Formula 1,
+          and other sports followed by fans worldwide.
+        </div>
+
+      </details>
+
+
+      <details class="group rounded-3xl border border-white/[0.08] bg-white/[0.025] transition-all duration-300 hover:border-fuchsia-500/30 hover:bg-white/[0.045]">
+
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-5 px-6 py-6">
+
+          <span class="text-[17px] font-bold leading-7 text-white">
+            What can I check about a sports event?
+          </span>
+
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-black text-lg text-fuchsia-400 transition-transform duration-300 group-open:rotate-45">
+            +
+          </span>
+
+        </summary>
+
+        <div class="border-t border-white/[0.06] px-6 pb-6 pt-5 text-sm leading-7 text-zinc-500">
+          Depending on the event, TotalSportek may provide useful details
+          such as teams, opponents, competition names, dates, scheduled
+          times, event stages, and other relevant information.
+        </div>
+
+      </details>
+
+      <details class="group rounded-3xl border border-white/[0.08] bg-white/[0.025] transition-all duration-300 hover:border-fuchsia-500/30 hover:bg-white/[0.045]">
+
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-5 px-6 py-6">
+
+          <span class="text-[17px] font-bold leading-7 text-white">
+            Does TotalSportek include soccer?
+          </span>
+
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-black text-lg text-fuchsia-400 transition-transform duration-300 group-open:rotate-45">
+            +
+          </span>
+
+        </summary>
+
+        <div class="border-t border-white/[0.06] px-6 pb-6 pt-5 text-sm leading-7 text-zinc-500">
+          Yes. TotalSportek includes soccer as one of its major categories,
+          with information around fixtures, competitions, clubs, tournaments,
+          and notable football events.
+        </div>
+
+      </details>
+
+      <details class="group rounded-3xl border border-white/[0.08] bg-white/[0.025] transition-all duration-300 hover:border-fuchsia-500/30 hover:bg-white/[0.045]">
+
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-5 px-6 py-6">
+
+          <span class="text-[17px] font-bold leading-7 text-white">
+            Can I find NBA and NFL information?
+          </span>
+
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-black text-lg text-fuchsia-400 transition-transform duration-300 group-open:rotate-45">
+            +
+          </span>
+
+        </summary>
+
+        <div class="border-t border-white/[0.06] px-6 pb-6 pt-5 text-sm leading-7 text-zinc-500">
+          TotalSportek covers both NBA and NFL, allowing visitors to explore
+          basketball and football schedules, matchups, teams, competitions,
+          and important games throughout their respective seasons.
+        </div>
+
+      </details>
+
+      <details class="group rounded-3xl border border-white/[0.08] bg-white/[0.025] transition-all duration-300 hover:border-fuchsia-500/30 hover:bg-white/[0.045]">
+
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-5 px-6 py-6">
+
+          <span class="text-[17px] font-bold leading-7 text-white">
+            Does TotalSportek cover UFC and MMA?
+          </span>
+
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-black text-lg text-fuchsia-400 transition-transform duration-300 group-open:rotate-45">
+            +
+          </span>
+
+        </summary>
+
+        <div class="border-t border-white/[0.06] px-6 pb-6 pt-5 text-sm leading-7 text-zinc-500">
+          Yes. TotalSportek includes UFC and MMA-related information such as
+          upcoming events, fight cards, featured matchups, fighters,
+          championship contests, and major combat sports occasions.
+        </div>
+
+      </details>
+
+      <details class="group rounded-3xl border border-white/[0.08] bg-white/[0.025] transition-all duration-300 hover:border-fuchsia-500/30 hover:bg-white/[0.045]">
+
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-5 px-6 py-6">
+
+          <span class="text-[17px] font-bold leading-7 text-white">
+            Can TotalSportek be used on mobile devices?
+          </span>
+
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-black text-lg text-fuchsia-400 transition-transform duration-300 group-open:rotate-45">
+            +
+          </span>
+
+        </summary>
+
+        <div class="border-t border-white/[0.06] px-6 pb-6 pt-5 text-sm leading-7 text-zinc-500">
+          TotalSportek uses a responsive design that works across modern
+          phones, tablets, laptops, and desktop screens, making sports
+          categories and event information easy to browse on different devices.
+        </div>
+
+      </details>
+
+      <details class="group rounded-3xl border border-white/[0.08] bg-white/[0.025] transition-all duration-300 hover:border-fuchsia-500/30 hover:bg-white/[0.045]">
+
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-5 px-6 py-6">
+
+          <span class="text-[17px] font-bold leading-7 text-white">
+            Does TotalSportek cover other major sports?
+          </span>
+
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-black text-lg text-fuchsia-400 transition-transform duration-300 group-open:rotate-45">
+            +
+          </span>
+
+        </summary>
+
+        <div class="border-t border-white/[0.06] px-6 pb-6 pt-5 text-sm leading-7 text-zinc-500">
+          Alongside Soccer, NFL, NBA and UFC, TotalSportek also covers areas
+          such as NHL, MLB, CFB, Formula 1, MMA, and other widely followed
+          sporting categories.
+        </div>
+
+      </details>
+
+      <details class="group md:col-span-2 overflow-hidden rounded-[2rem] border border-fuchsia-500/20 bg-gradient-to-r from-fuchsia-950/30 via-purple-950/20 to-indigo-950/30">
+
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-6 px-7 py-7 md:px-9">
+
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-[0.25em] text-fuchsia-400">
+              TotalSportek
+            </span>
+
+            <h3 class="mt-2 text-xl font-extrabold text-white md:text-2xl">
+              Why choose TotalSportek for sports discovery?
+            </h3>
+          </div>
+
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-2xl text-black transition-transform duration-300 group-open:rotate-45">
+            +
+          </span>
+
+        </summary>
+
+        <div class="border-t border-white/10 px-7 pb-8 pt-6 text-sm leading-8 text-zinc-400 md:px-9">
+          TotalSportek gives sports fans a convenient starting point for
+          exploring different competitions without having to focus on just
+          one category. From soccer and basketball to NFL, UFC, hockey,
+          baseball, college football, motorsports, and MMA, TotalSportek
+          brings popular sports information into one clean and organized
+          experience.
+        </div>
+
+      </details>
+
+    </div>
+
+  </div>
+</section>
+
+<h2 class="mt-12 mb-7 text-[30px] font-black tracking-tight text-white md:text-[40px]">
+  Discover More with TotalSportek
+</h2>
+
+<p class="text-[16px] leading-[34px] text-zinc-400">
+  TotalSportek gives sports fans a convenient place to explore the games,
+  competitions, and events they follow. Browse popular categories such as
+  Soccer, NBA, NFL, UFC, NHL, MLB, CFB, MMA, and Formula 1, along with
+  schedules, team matchups, upcoming fixtures, tournaments, fight cards,
+  race weekends, and other important sporting activities. With a clean and
+  organized experience, TotalSportek makes it easier to discover upcoming
+  events, follow different competitions, and find useful sports information
+  throughout the year.
+</p>
+
+        </div>
+      </div>
+    </main>
+    <div
+      id="footer-ad"
+      class="fixed bottom-0 left-1/2 -translate-x-1/2 z-[9999] w-full flex justify-center px-2 pb-2"
+    >
+      <div class="relative">
+        <button
+          onclick="document.getElementById('footer-ad').style.display='none'"
+          class="absolute -top-3 -right-3 z-50 w-7 h-7 flex items-center justify-center text-white text-sm"
+        >
+          ✕
+        </button>
+
+        <div class="overflow-hidden">
+
+
+
+        </div>
+      </div>
+    </div>
+    <footer class="mt-auto bg-[#131320] border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-7 py-7">
+        <div class="flex flex-col lg:flex-row justify-between gap-5">
+          <div class="max-w-2xl">
+            <h2 class="text-lg font-medium text-[#c084fc] tracking-wide">
+              TotalSportek
+            </h2>
+
+<p class="text-[#f9fafb] text-xs mt-2 leading-5">
+  <span class="text-zinc-300 font-medium">Disclaimer:</span>
+  TotalSportek is an independent sports information website created to help
+  visitors explore schedules, teams, leagues, competitions, match details,
+  tournaments, and upcoming sporting events. The website does not produce,
+  host, store, or provide copyrighted live broadcasts, recorded games, or
+  audiovisual material owned by third parties. Any team names, league names,
+  logos, trademarks, or other identifying marks shown on TotalSportek belong
+  to their respective owners and are used only to identify the related sports
+  or competitions. TotalSportek is not an official representative of, nor
+  affiliated with, any league, team, federation, broadcaster, tournament,
+  or event organizer. Links, advertisements, and references to outside
+  websites or services may appear independently and are controlled by their
+  respective providers. Visitors are responsible for reviewing the policies,
+  terms, and conditions of any external service they access. TotalSportek
+  does not control or guarantee the accuracy, availability, or content of
+  third-party websites and services.
+</p>
+          </div>
+
+          <div class="flex items-start gap-5 text-xs font-medium">
+            <a
+              href="/privacy"
+              class="text-[#f9fafb] hover:text-[#c084fc] transition"
+            >
+              Privacy Policy
+            </a>
+
+            <a
+              href="/dmca"
+              class="text-[#f9fafb] hover:text-[#c084fc] transition"
+            >
+              DMCA
+            </a>
+
+            <a
+              href="/contact"
+              class="text-[#f9fafb] hover:text-[#c084fc] transition"
+            >
+              Contact
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-white/10 mt-3 pt-3 flex flex-col sm:flex-row items-center justify-between gap-2"
+        >
+          <p class="text-[#f9fafb] text-xs">
+            © 2026 TotalSportek. All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>

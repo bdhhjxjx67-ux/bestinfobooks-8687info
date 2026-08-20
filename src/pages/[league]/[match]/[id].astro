@@ -1,0 +1,365 @@
+---
+import "../../../styles/global.css";
+
+export const prerender = false;
+
+type Match = {
+  MatchID: string;
+  League: string;
+  LeagueLogo: string;
+  Team1: string;
+  Team1Logo: string;
+  Team2: string;
+  Team2Logo: string;
+  Date: string;
+  Time: string;
+  IframeURL: string;
+};
+
+const { id } = Astro.params;
+
+const res = await fetch(
+  "https://opensheet.elk.sh/1gHshryM9mQFVYC2AeSj6bhcKW8_g69EBbMPI0F8s53Y/1",
+);
+
+const matches: Match[] = await res.json();
+
+const match = matches.find((item) => item.MatchID === id);
+
+if (!match) {
+  return Astro.redirect("/");
+}
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+<title>
+  {match.Team1} vs {match.Team2} – Match Schedule, Teams & Game Info | TotalSportek
+</title>
+
+<meta
+  name="description"
+  content={`Check ${match.Team1} vs ${match.Team2} on TotalSportek for ${match.League} details, game time, team information, matchup details, recent form, and useful updates about the event.`}
+/>
+
+<meta
+  name="keywords"
+  content={`${match.Team1} vs ${match.Team2}, TotalSportek, ${match.League}, ${match.Team1}, ${match.Team2}, match schedule, game time, team details, matchup, sports event, upcoming game, league schedule, game information`}
+/>
+ 
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&family=Roboto+Condensed:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+     <script type="text/javascript" data-cfasync="false">
+      /*<![CDATA[/* */
+      (function () {
+        var f = window,
+          o = "a87676653363e404276efa598a496750",
+          g = [
+            ["siteId", 669 - 556 + 61 + 506 - 86 + 5278574],
+            ["minBid", 0],
+            ["popundersPerIP", "0:1"],
+            ["delayBetween", 0],
+            ["default", "SElHSCBDUE0="],
+            ["defaultPerDay", 0],
+            ["topmostLayer", "auto"],
+          ],
+          e = [
+            "d3d3LmRpc3BsYXl2ZXJ0aXNpbmcuY29tL3lqcXVlcnkuaW1nYXJlYXNlbGVjdC5taW4uY3Nz",
+            "ZDNtem9rdHk5NTFjNXcuY2xvdWRmcm9udC5uZXQvWi94Ym9vdHN0cmFwLWNvbG9ycGlja2VyLm1pbi5qcw==",
+          ],
+          c = -1,
+          s,
+          h,
+          v = function () {
+            clearTimeout(h);
+            c++;
+            if (e[c] && !(1797887577000 < new Date().getTime() && 1 < c)) {
+              s = f.document.createElement("script");
+              s.type = "text/javascript";
+              s.async = !0;
+              var y = f.document.getElementsByTagName("script")[0];
+              s.src = "https://" + atob(e[c]);
+              s.crossOrigin = "anonymous";
+              s.onerror = v;
+              s.onload = function () {
+                clearTimeout(h);
+                f[o.slice(0, 16) + o.slice(0, 16)] || v();
+              };
+              h = setTimeout(v, 5e3);
+              y.parentNode.insertBefore(s, y);
+            }
+          };
+        if (!f[o]) {
+          try {
+            Object.freeze((f[o] = g));
+          } catch (e) {}
+          v();
+        }
+      })();
+      /*]]>/* */
+    </script>
+        <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+  </head>
+  <body class="min-h-screen flex flex-col bg-[#09090f] text-white">
+    
+    <script type="text/javascript">
+        aclib.runPop({
+            zoneId: '11196322',
+        });
+    </script>
+    <header class="bg-[#131320] border-b border-white/5">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="h-16 flex items-center justify-between gap-4">
+          <a
+            href="/"
+            class="text-2xl font-bold text-white hover:text-[#c084fc] transition whitespace-nowrap"
+          >
+            TotalSportek
+          </a>
+
+          <a
+            href="/"
+            class="inline-flex items-center gap-2 text-[#f9fafb] hover:text-[#c084fc] transition duration-200"
+            aria-label="Go back to homepage"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 -960 960 960"
+              width="22"
+              height="22"
+              fill="currentColor"
+            >
+              <path
+                d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"
+              ></path>
+            </svg>
+
+            <span class="text-sm font-medium">Back</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-1 relative z-10 max-w-6xl mx-auto w-full px-4 py-10">
+      <div class="flex justify-center items-center my-6 px-4">
+  <a href="https://discord.com/invite/HA28b5xMTW"
+     target="_blank"
+     class="flex items-center gap-3 bg-[#5865F2] hover:opacity-90 transition-all duration-300 px-6 py-4 rounded-2xl w-full max-w-md justify-center">
+
+    <svg viewBox="0 -28.5 256 256" class="w-8 h-8 flex-shrink-0" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" fill="#000000">
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <g>
+                      <path
+                        d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z"
+                        fill="#fff" fill-rule="nonzero"> </path>
+                    </g>
+                  </g>
+                </svg>
+    
+    <span class="text-white font-semibold text-sm sm:text-base text-center leading-tight">
+  Join TotalSportek Community on Discord
+</span>
+  </a>
+</div>
+      <div class="rounded-lg overflow-hidden bg-[#131320] backdrop-blur-xl">
+        <div class="p-8 border-b border-white/5">
+          <div
+            class="inline-flex items-center gap-2 rounded-full bg-[#a855f7] px-4 py-2"
+          >
+            <span class="text-white text-sm capitalize">
+              {match.League}
+            </span>
+          </div>
+
+          <h1 class="mt-6 text-4xl md:text-6xl font-black">
+            {match.Team1} vs {match.Team2}
+          </h1>
+
+          <div class="mt-4 text-[#999] flex gap-3 font-medium">
+            <span>{match.Date}</span>
+            <span>•</span>
+            <span>{match.Time}</span>
+          </div>
+        </div>
+
+        <div class="p-10">
+          <div class="grid grid-cols-3 items-center gap-4 md:gap-10">
+            <div class="text-center">
+              <img
+                src={match.Team1Logo}
+                alt="Team Logo"
+                class="w-20 h-20 md:w-28 md:h-28 mx-auto object-contain"
+              />
+              <h2 class="mt-4 text-sm md:text-2xl font-bold">
+                {match.Team1}
+              </h2>
+            </div>
+
+            <div class="text-center flex justify-center">
+              <div
+                class="inline-flex items-center justify-center w-16 h-16 md:w-24 md:h-24 rounded-full"
+              >
+                <span class="text-2xl md:text-3xl font-black text-white">
+                  VS
+                </span>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <img
+                src={match.Team2Logo}
+                alt="Team Logo"
+                class="w-20 h-20 md:w-28 md:h-28 mx-auto object-contain"
+              />
+              <h2 class="mt-4 text-sm md:text-2xl font-bold">
+                {match.Team2}
+              </h2>
+            </div>
+          </div>
+          <div class="mt-12 flex justify-center">
+            <a
+              href={`/play/${match.MatchID}`}
+              class="group inline-flex items-center gap-4 rounded-2xl bg-gradient-to-r from-purple-600 via-violet-500 to-indigo-600 px-8 py-4 font-bold text-white transition-all duration-300 hover:scale-105"
+            >
+              <div
+                class="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 -960 960 960"
+                  width="24px"
+                  fill="#fff"
+                  ><path
+                    d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"
+                  ></path></svg
+                >
+              </div>
+
+              <div class="flex flex-col leading-none">
+                <span class="text-[10px] text-white/70 font-medium">
+                  Live Match
+                </span>
+                <span class="text-base font-medium"> Watch Stream </span>
+              </div>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="transition-transform group-hover:translate-x-1"
+              >
+                <path d="M5 12h14"></path>
+                <path d="M13 18l6 -6"></path>
+                <path d="M13 6l6 6"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+<footer class="mt-auto bg-[#131320] border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-7 py-7">
+        <div class="flex flex-col lg:flex-row justify-between gap-5">
+          <div class="max-w-2xl">
+            <h2 class="text-lg font-medium text-[#c084fc] tracking-wide">
+              TotalSportek
+            </h2>
+
+<p class="text-[#f9fafb] text-xs mt-2 leading-5">
+  <span class="text-zinc-300 font-medium">Disclaimer:</span>
+  TotalSportek is an independent sports information website created to help
+  visitors explore schedules, teams, leagues, competitions, match details,
+  tournaments, and upcoming sporting events. The website does not produce,
+  host, store, or provide copyrighted live broadcasts, recorded games, or
+  audiovisual material owned by third parties. Any team names, league names,
+  logos, trademarks, or other identifying marks shown on TotalSportek belong
+  to their respective owners and are used only to identify the related sports
+  or competitions. TotalSportek is not an official representative of, nor
+  affiliated with, any league, team, federation, broadcaster, tournament,
+  or event organizer. Links, advertisements, and references to outside
+  websites or services may appear independently and are controlled by their
+  respective providers. Visitors are responsible for reviewing the policies,
+  terms, and conditions of any external service they access. TotalSportek
+  does not control or guarantee the accuracy, availability, or content of
+  third-party websites and services.
+</p>
+          </div>
+
+          <div class="flex items-start gap-5 text-xs font-medium">
+            <a
+              href="/privacy"
+              class="text-[#f9fafb] hover:text-[#c084fc] transition"
+            >
+              Privacy Policy
+            </a>
+
+            <a
+              href="/dmca"
+              class="text-[#f9fafb] hover:text-[#c084fc] transition"
+            >
+              DMCA
+            </a>
+
+            <a
+              href="/contact"
+              class="text-[#f9fafb] hover:text-[#c084fc] transition"
+            >
+              Contact
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-white/10 mt-3 pt-3 flex flex-col sm:flex-row items-center justify-between gap-2"
+        >
+          <p class="text-[#f9fafb] text-xs">
+            © 2026 TotalSportek. All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+    <script is:inline>
+  var _Hasync = _Hasync || [];
+  _Hasync.push(['Histats.start', '1,5001932,4,0,0,0,00010000']);
+  _Hasync.push(['Histats.fasi', '1']);
+  _Hasync.push(['Histats.track_hits', '']);
+
+  (function () {
+    var hs = document.createElement('script');
+    hs.type = 'text/javascript';
+    hs.async = true;
+    hs.src = '//s10.histats.com/js15_as.js';
+    document.head.appendChild(hs);
+  })();
+</script>
+<noscript>
+  <a href="/" target="_blank">
+    <img
+      src="//sstatic1.histats.com/0.gif?5001932&101"
+      alt="site stats"
+    />
+  </a>
+</noscript>
+  </body>
+</html>
