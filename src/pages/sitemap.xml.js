@@ -3,7 +3,7 @@ import slugify from "../utils/slugify";
 export const prerender = false;
 
 export const GET = async () => {
-  const BASE_URL = "https://mycracksofts.info";
+  const BASE_URL = "https://bestinfobooks.info";
 
   const API_URL =
     "https://opensheet.elk.sh/1gHshryM9mQFVYC2AeSj6bhcKW8_g69EBbMPI0F8s53Y/1";

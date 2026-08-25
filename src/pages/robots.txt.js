@@ -1,7 +1,7 @@
 export const prerender = true;
 
 export const GET = () => {
-  const baseUrl = "https://mycracksofts.info";
+  const baseUrl = "https://bestinfobooks.info";
 
   const body = `
 User-agent: *
