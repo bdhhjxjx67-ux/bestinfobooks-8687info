@@ -1,14 +1,12 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
-import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
-  output: 'server',
+  site: 'https://bdhhjxjx67-ux.github.io',
+  base: '/bestinfobooks-8687info/',
 
   vite: {
     plugins: [tailwindcss()]
-  },
-
-  adapter: cloudflare()
+  }
 });
