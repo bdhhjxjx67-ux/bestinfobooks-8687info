@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "bestinfobooks-8687info",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -9,7 +9,6 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.12",
     "@tailwindcss/vite": "^4.2.0",
     "astro": "^5.17.1",
     "moment-timezone": "^0.6.0"
